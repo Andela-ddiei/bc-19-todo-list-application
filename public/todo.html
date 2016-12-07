@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html ng-app="todo">
+
+    <head>
+        <title></title>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="/assets/css/style.css" />
+        <link rel="stylesheet" href="/assets/css/style.css" />
+        <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css" />
+
+        <link rel="stylesheet" href="/assets/vendor/sweetalert/dist/sweetalert.css" />
+
+
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0-rc.2/angular.min.js"></script>
+
+        <script src="/assets/vendor/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="/assets/vendor/angular-sweetalert/SweetAlert.min.js"></script>
+        <script src="/assets/js/app.js"></script>
+    </head>
+
+    <body ng-controller="todoCtrl as toDo">
+        {{ toDo.message }}
+        <div class="wrapper">
+            <header class="main-header">
+                <div class="container">
+                    <div class="col-md-12">
+                        <div class="pull-left">
+                            <h1>TO DO</h1>
+                        </div>
+                        <div class="pull-right">
+                            <button class="btn btn-warning" id="logout">Logout</button>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+            </header>
+            <section>
+                <div id="todo-container" class="container">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="container">
+                                <div class="row">
+                                    <input type="text" class="create-list" id="item" ng-model="toDo.newListName" placeholder="Create a list...">
+                                    <button class="create-list-button" ng-click="toDo.addList()" id="add">Create</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="lists">
+                        <div ng-repeat="list in toDo.lists" class="col-md-4">
+                            <ul class="todo" id="incomplete">
+                                <div class="listname">
+                                    <h3>{{list.name}}</h3>
+                                    <div class="list-buttons"><button ng-click="toDo.deleteList( $index )">Delete list</button></div>
+                                </div>
+                                <button ng-click="toDo.hideAddCardDiv = !toDo.hideAddCardDiv">Add card</button>
+                                <div ng-if="toDo.hideAddCardDiv">
+
+                                    <input type="text" ng-model="toDo.newCard.name" placeholder="Name"><br />
+                                    <input type="text" ng-model="toDo.newCard.description" placeholder="description"><br/>
+                                    <input type="date" ng-model="toDo.newCard.dueDate" placeholder="Due Date">
+                                    <textarea rows="4" cols="50" placeholder="Add an item"></textarea>
+                                    <button ng-click="toDo.addCard($index)">Save Card</button>
+
+
+
+
+                                </div>
+
+
+                                <li ng-repeat=" card in list.cards track by $index  ">{{ card.name }}
+                                    <button class="buttons" ng-click="toDo.deleteCard( $index ) ">Delete</button></li>
+
+
+                            </ul>
+
+                        </div>
+                    </div>
+
+
+                </div>
+        </div>
+        </section>
+        <footer>
+        </footer>
+        <script src="/assets/js/script.js "></script>
+        <script type="text/javascript " src="/assets/js/app.js ">
+            < script >
+                <
+                /body>
+
+            <
+            /html>
