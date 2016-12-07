@@ -55,14 +55,22 @@
                                     <h3>{{list.name}}</h3>
                                     <div class="list-buttons"><button ng-click="toDo.deleteList( $index )">Delete list</button></div>
                                 </div>
-                                <button ng-click="toDo.hideAddCardDiv = !toDo.hideAddCardDiv">Add card</button>
-                                <div ng-if="toDo.hideAddCardDiv">
+                                <button ng-click="list.addCardOpen = !list.addCardOpen" id="addcard">Add card</button>
+                                <div ng-if="list.addCardOpen">
 
                                     <input type="text" ng-model="toDo.newCard.name" placeholder="Name"><br />
                                     <input type="text" ng-model="toDo.newCard.description" placeholder="description"><br/>
                                     <input type="date" ng-model="toDo.newCard.dueDate" placeholder="Due Date">
-                                    <textarea rows="4" cols="50" placeholder="Add an item"></textarea>
-                                    <button ng-click="toDo.addCard($index)">Save Card</button>
+                                    <div>
+                                        <input ng-model="toDo.newToDo" placeholder="Add an item">
+                                        </input><button ng-click="toDo.addItem()">Add Item</button>
+                                    </div>
+                                    <ul>
+                                        <li ng-repeat="item in toDo.newCard.toDoItems ">
+                                            <p>{{item.name}}</p>
+                                        </li>
+                                    </ul>
+                                    <br /><button ng-click="toDo.addCard($index)">Save Card</button>
 
 
 
@@ -70,8 +78,16 @@
                                 </div>
 
 
-                                <li ng-repeat=" card in list.cards track by $index  ">{{ card.name }}
-                                    <button class="buttons" ng-click="toDo.deleteCard( $index ) ">Delete</button></li>
+                                <li ng-repeat=" card in list.cards track by $index  ">
+                                    <div ng-click="card.showDetails = card.showDetails === undefined || !card.showDetails ? true : false">
+                                        {{card.name}}
+                                        <button class="buttons" ng-click="toDo.deleteCard( toDo.lists.indexOf(list), $index ) ">Delete</button>
+                                    </div>
+                                    <div ng-show="card.showDetails">
+                                        <p>{{card.description}}</p>
+                                        <span ng-repeat="item in card.toDoItems"><br><input type="checkbox" ng-model="item.isChecked"> <p class='item-done-{{item.isChecked}}'>{{item.name}}</p></span>
+                                    </div>
+                                </li>
 
 
                             </ul>

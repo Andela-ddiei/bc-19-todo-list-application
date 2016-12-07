@@ -107,7 +107,7 @@ ul.todo {
 
 ul.todo li {
     width: 100%;
-    height: 50px;
+    /*height: 50px;*/
     background: #fff;
     border-radius: 5px;
     box-shadow: none;
@@ -123,8 +123,8 @@ ul.todo li:last-child {
 }
 
 ul.todo li .buttons {
-    width: 50px;
-    height: 50px;
+    /*width: 50px;*/
+    /*height: 50px;*/
     position: absolute;
     right: 0px;
     border: 5px;
@@ -142,7 +142,7 @@ input[type='checkbox'] {
 
 .listname {
     width: 100%;
-    height: 50px;
+    /*height: 50px;*/
     background: lightskyblue;
     border-radius: 5px;
     box-shadow: none;
@@ -166,12 +166,23 @@ ul.todo .list-buttons {
 }
 
 ul.todo .list-buttons button {
-    width: 50px;
-    height: 50px;
+    /*width: 50px;*/
+    /*height: 50px;*/
     border: 5px;
     background: none;
 }
 
 .completed {
     background: rgba(168, 168, 168, 1);
+}
+
+#addcard {
+    width: 100%;
+    border-radius: 5px;
+    background-color: green;
+    border: 0px;
+}
+
+.item-done-true {
+    text-decoration: line-through;
 }
