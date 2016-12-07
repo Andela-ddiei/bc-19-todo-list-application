@@ -1,4 +1,4 @@
-angular.module('todo', ['oitozero.ngSweetAlert'])
+angular.module('todo', ['oitozero.ngSweetAlert', "dndLists"])
     .controller('todoCtrl', ['SweetAlert', function (SweetAlert) {
         this.message = "message";
         this.newListName = "";

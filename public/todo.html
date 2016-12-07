@@ -15,6 +15,7 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0-rc.2/angular.min.js"></script>
 
+        <script src="/assets/js/angular-drag-and-drop-lists.min.js"></script>
         <script src="/assets/vendor/sweetalert/dist/sweetalert.min.js"></script>
         <script src="/assets/vendor/angular-sweetalert/SweetAlert.min.js"></script>
         <script src="/assets/js/app.js"></script>
@@ -49,8 +50,9 @@
                         </div>
                     </div>
                     <div class="row" id="lists">
+
                         <div ng-repeat="list in toDo.lists" class="col-md-4">
-                            <ul class="todo" id="incomplete">
+                            <ul class="todo" id="incomplete" dnd-list="list.cards">
                                 <div class="listname">
                                     <h3>{{list.name}}</h3>
                                     <div class="list-buttons"><button ng-click="toDo.deleteList( $index )">Delete list</button></div>
@@ -78,14 +80,15 @@
                                 </div>
 
 
-                                <li ng-repeat=" card in list.cards track by $index  ">
+                                <li ng-repeat="card in list.cards track by $index" dnd-draggable="card" dnd-moved="list.cards.splice($index, 1)" dnd-effect-allowed="move" dnd-selected="list.cards.selected = card" ng-class="{'selected': list.cards.selected === card}">
+
                                     <div ng-click="card.showDetails = card.showDetails === undefined || !card.showDetails ? true : false">
                                         {{card.name}}
-                                        <button class="buttons" ng-click="toDo.deleteCard( toDo.lists.indexOf(list), $index ) ">Delete</button>
+                                        <button class="buttons " ng-click="toDo.deleteCard( toDo.lists.indexOf(list), $index ) ">Delete</button>
                                     </div>
-                                    <div ng-show="card.showDetails">
+                                    <div ng-show="card.showDetails ">
                                         <p>{{card.description}}</p>
-                                        <span ng-repeat="item in card.toDoItems"><br><input type="checkbox" ng-model="item.isChecked"> <p class='item-done-{{item.isChecked}}'>{{item.name}}</p></span>
+                                        <span ng-repeat="item in card.toDoItems "><br><input type="checkbox " ng-model="item.isChecked "> <p class='item-done-{{item.isChecked}}'>{{item.name}}</p></span>
                                     </div>
                                 </li>
 
