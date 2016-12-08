@@ -34,8 +34,8 @@ angular.module('todo', ['oitozero.ngSweetAlert', "dndLists"])
                     this.lists.splice(listIndex, 1);
                     console.log(listIndex);
                     SweetAlert.swal("Your list has been deleted!");
-
                 }.bind(this));
+
 
         }
         this.newCard = {

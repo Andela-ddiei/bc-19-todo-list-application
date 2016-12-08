@@ -12,15 +12,13 @@ button {
 
 .main-header {
     width: 100%;
-    height: 60px;
+    height: 80px;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 5;
-    background: #094C72;
+    background: #120815;
     box-shadow: 0px 2px 4px rgba(44, 62, 80, 0.15);
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
     color: #fff;
 }
 
@@ -37,8 +35,8 @@ button {
 }
 
 #logout_btn {
-    background: crimson;
-    border: 1px solid #298FCA;
+    background: #0756A5;
+    border: 1px solid #0756A5;
 }
 
 .clear {
@@ -46,7 +44,7 @@ button {
 }
 
 body {
-    background: linear-gradient(#298FCA, #0079BF, #026AA7);
+    background-color: #F1CDFB !important;
 }
 
 
@@ -62,7 +60,7 @@ input[type="checkbox"] {
 
 .create-list {
     height: 40px;
-    width: 200px;
+    width: 70%;
     background: #fff;
     border-radius: 5px;
     font-size: 15px;
@@ -98,7 +96,7 @@ input::-moz-placeholder {
 }
 
 ul.todo {
-    width: 100%;
+    width: 80%;
 }
 
 #lists {
@@ -107,15 +105,15 @@ ul.todo {
 
 ul.todo li {
     width: 100%;
-    /*height: 50px;*/
-    background: #fff;
-    border-radius: 5px;
+    height: 50px;
+    background: #120815;
+    border-radius: 2px;
     box-shadow: none;
-    margin-bottom: 10px;
+    margin: 10px;
     position: relative;
-    padding: 0 100px 0 0;
     list-style: none;
     font-size: 14px;
+    color: #fff;
 }
 
 ul.todo li:last-child {
@@ -127,8 +125,13 @@ ul.todo li .buttons {
     /*height: 50px;*/
     position: absolute;
     right: 0px;
+    margin-left: 10px;
     border: 5px;
-    background: none;
+    background: pink;
+    color: black;
+    border-radius: 2px;
+    padding: 5px;
+    margin-top: 10px
 }
 
 #completed {
@@ -142,23 +145,21 @@ input[type='checkbox'] {
 
 .listname {
     width: 100%;
-    /*height: 50px;*/
-    background: lightskyblue;
-    border-radius: 5px;
+    height: 150px;
+    background: #210829;
     box-shadow: none;
-    margin-bottom: 10px;
+    margin-bottom: 0 10px 10px -10px;
     position: relative;
     padding: 0 100px 0 0;
+    color: #fff;
+    padding: 10px;
 }
 
 ul.todo .list-buttons {
     right: 0px;
     top: 0px;
-    width: 100px;
     height: 50px;
     position: absolute;
-    border: 5px;
-    background: none;
 }
 
 .list {
@@ -169,7 +170,11 @@ ul.todo .list-buttons button {
     /*width: 50px;*/
     /*height: 50px;*/
     border: 5px;
-    background: none;
+    background: pink;
+    color: black;
+    border-radius: 2px;
+    padding: 5px;
+    margin-top: 10px;
 }
 
 .completed {
@@ -178,11 +183,48 @@ ul.todo .list-buttons button {
 
 #addcard {
     width: 100%;
-    border-radius: 5px;
-    background-color: green;
+    height: 50px;
+    background-color: #DC91F2;
     border: 0px;
 }
 
 .item-done-true {
     text-decoration: line-through;
+}
+
+#head-text {
+    font-family: 'Yellowtail', cursive;
+}
+
+.add-save {
+    border-radius: 5px;
+    height: 40px;
+    color: #fff;
+    background: #120815;
+    padding: 5px;
+    width: auto;
+}
+
+#delete-button {
+    background: pink;
+    color: black;
+    border-radius: 2px;
+    padding: 5px;
+    margin-top: 0px;
+}
+
+.input {
+    width: 100%;
+    margin-bottom: 3px;
+    margin-top: 3px;
+    border-radius: 3px;
+    border: solid #aaa 2px;
+}
+
+#showdetails {
+    background: black;
+}
+
+h3 {
+    font-size: 18px !important;
 }
