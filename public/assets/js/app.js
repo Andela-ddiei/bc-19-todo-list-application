@@ -1,199 +1,15 @@
-angular.module('todo', ['oitozero.ngSweetAlert'])
+angular.module('todo', ['oitozero.ngSweetAlert', "dndLists"])
     .controller('todoCtrl', ['SweetAlert', function (SweetAlert) {
         this.message = "message";
         this.newListName = "";
-        this.lists = [{
-                name: "List 1",
-                cards: [{
-                        isDone: 0,
-                        name: ' card 1',
-                        description: ' a card',
-                        dueDate: ' a card',
-                        toDoItems: [{
-                                isChecked: 0,
-                                name: 'Buy sausages'
-                            },
-                            {
-                                isChecked: 0,
-                                name: 'Buy eggs'
-                            },
-                            {
-                                isChecked: 0,
-                                name: 'Buy bread'
-                            }
-                        ]
-                    },
-                    {
-                        isDone: 0,
-                        name: ' card 1',
-                        description: ' a card',
-                        dueDate: ' a card',
-                        toDoItems: [{
-                                isChecked: 0,
-                                name: 'Buy sausages'
-                            },
-                            {
-                                isChecked: 0,
-                                name: 'Buy eggs'
-                            },
-                            {
-                                isChecked: 0,
-                                name: 'Buy bread'
-                            }
-                        ]
-                    },
-                    {
-                        isDone: 0,
-                        name: ' card 1',
-                        description: ' a card',
-                        dueDate: ' a card',
-                        toDoItems: [{
-                                isChecked: 0,
-                                name: 'Buy sausages'
-                            },
-                            {
-                                isChecked: 0,
-                                name: 'Buy eggs'
-                            },
-                            {
-                                isChecked: 0,
-                                name: 'Buy bread'
-                            }
-                        ]
-                    }
-
-                ]
-            },
-            {
-                name: "List 2",
-                cards: [{
-                        isDone: 0,
-                        name: ' card 1',
-                        description: ' a card',
-                        dueDate: ' a card',
-                        toDoItems: [{
-                                isChecked: 0,
-                                name: 'Buy sausages'
-                            },
-                            {
-                                isChecked: 0,
-                                name: 'Buy eggs'
-                            },
-                            {
-                                isChecked: 0,
-                                name: 'Buy bread'
-                            }
-                        ]
-                    },
-                    {
-                        isDone: 0,
-                        name: ' card 1',
-                        description: ' a card',
-                        dueDate: ' a card',
-                        toDoItems: [{
-                                isChecked: 0,
-                                name: 'Buy sausages'
-                            },
-                            {
-                                isChecked: 0,
-                                name: 'Buy eggs'
-                            },
-                            {
-                                isChecked: 0,
-                                name: 'Buy bread'
-                            }
-                        ]
-                    },
-                    {
-                        isDone: 0,
-                        name: ' card 1',
-                        description: ' a card',
-                        dueDate: ' a card',
-                        toDoItems: [{
-                                isChecked: 0,
-                                name: 'Buy sausages'
-                            },
-                            {
-                                isChecked: 0,
-                                name: 'Buy eggs'
-                            },
-                            {
-                                isChecked: 0,
-                                name: 'Buy bread'
-                            }
-                        ]
-                    }
-
-                ]
-            },
-            {
-                name: "List 3",
-                cards: [{
-                        isDone: 0,
-                        name: ' card 1',
-                        description: ' a card',
-                        dueDate: ' a card',
-                        toDoItems: [{
-                                isChecked: 0,
-                                name: 'Buy sausages'
-                            },
-                            {
-                                isChecked: 0,
-                                name: 'Buy eggs'
-                            },
-                            {
-                                isChecked: 0,
-                                name: 'Buy bread'
-                            }
-                        ]
-                    },
-                    {
-                        isDone: 0,
-                        name: ' card 1',
-                        description: ' a card',
-                        dueDate: ' a card',
-                        toDoItems: [{
-                                isChecked: 0,
-                                name: 'Buy sausages'
-                            },
-                            {
-                                isChecked: 0,
-                                name: 'Buy eggs'
-                            },
-                            {
-                                isChecked: 0,
-                                name: 'Buy bread'
-                            }
-                        ]
-                    },
-                    {
-                        isDone: 0,
-                        name: ' card 1',
-                        description: ' a card',
-                        dueDate: ' a card',
-                        toDoItems: [{
-                                isChecked: 0,
-                                name: 'Buy sausages'
-                            },
-                            {
-                                isChecked: 0,
-                                name: 'Buy eggs'
-                            },
-                            {
-                                isChecked: 0,
-                                name: 'Buy bread'
-                            }
-                        ]
-                    }
-
-                ]
-            }
-        ];
+        this.newTodo = "";
+        this.lists = [];
 
         this.addList = function () {
             if (this.newListName.length > 0) {
                 this.lists.push({
                     name: this.newListName,
+                    addCardOpen: false,
                     cards: []
                 });
                 this.newListName = "";
@@ -232,14 +48,11 @@ angular.module('todo', ['oitozero.ngSweetAlert'])
         this.hideAddCardDiv = false;
 
         this.addCard = function (listIndex) {
-            console.log(this.lists, listIndex);
             var copy = Object.assign({}, this.newCard);
             this.lists[listIndex]['cards'].push(copy);
-            console.log(this.lists);
-
-            this.hideAddCardDiv = false;
-
+            this.lists[listIndex].addCardOpen = false;
         };
+
         this.deleteCard = function (listIndex, cardIndex) {
             SweetAlert.swal({
                     title: "Are you sure?",
@@ -257,5 +70,14 @@ angular.module('todo', ['oitozero.ngSweetAlert'])
                 }.bind(this));
 
         }
+        this.addItem = function () {
+            console.log(this.newToDo);
+            this.newCard.toDoItems.push({
+                name: this.newToDo,
+                isChecked: false
+            });
+            this.newToDo = '';
+        }
+
 
     }]);

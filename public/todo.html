@@ -15,9 +15,47 @@
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0-rc.2/angular.min.js"></script>
 
+        <script src="/assets/js/angular-drag-and-drop-lists.min.js"></script>
         <script src="/assets/vendor/sweetalert/dist/sweetalert.min.js"></script>
         <script src="/assets/vendor/angular-sweetalert/SweetAlert.min.js"></script>
+
+        <script src="/assets/js/jquery.min.js"></script>
+
         <script src="/assets/js/app.js"></script>
+
+        <!-- Firebase -->
+        <script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
+
+        <!-- AngularFire -->
+        <script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script>
+        <script>
+            var config = {
+                apiKey: "AIzaSyB6yjreGaK9-UVUw7g-hEALD2fR3cp6CQ8",
+                authDomain: "todo-application-2d22b.firebaseapp.com",
+                databaseURL: "https://todo-application-2d22b.firebaseio.com",
+                storageBucket: "todo-application-2d22b.appspot.com",
+                messagingSenderId: "326563238265"
+            };
+            firebase.initializeApp(config);
+        </script>
+
+        <script>
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (!user) {
+                    window.location.href = "/";
+                }
+            });
+            $(document).ready(function() {
+
+                $('#logout_btn').click(function() {
+                    firebase.auth().signOut().then(function() {
+                        // signed out
+                    }, function(error) {
+                        swal("Error", "An error occured signing out. Please try again.", "error");
+                    });
+                });
+            });
+        </script>
     </head>
 
     <body ng-controller="todoCtrl as toDo">
@@ -30,7 +68,7 @@
                             <h1>TO DO</h1>
                         </div>
                         <div class="pull-right">
-                            <button class="btn btn-warning" id="logout">Logout</button>
+                            <button class="btn btn-warning" id="logout_btn">Logout</button>
                         </div>
                         <div class="clear"></div>
                     </div>
@@ -49,20 +87,29 @@
                         </div>
                     </div>
                     <div class="row" id="lists">
+
                         <div ng-repeat="list in toDo.lists" class="col-md-4">
-                            <ul class="todo" id="incomplete">
+                            <ul class="todo" id="incomplete" dnd-list="list.cards">
                                 <div class="listname">
                                     <h3>{{list.name}}</h3>
                                     <div class="list-buttons"><button ng-click="toDo.deleteList( $index )">Delete list</button></div>
                                 </div>
-                                <button ng-click="toDo.hideAddCardDiv = !toDo.hideAddCardDiv">Add card</button>
-                                <div ng-if="toDo.hideAddCardDiv">
+                                <button ng-click="list.addCardOpen = !list.addCardOpen" id="addcard">Add card</button>
+                                <div ng-if="list.addCardOpen">
 
                                     <input type="text" ng-model="toDo.newCard.name" placeholder="Name"><br />
                                     <input type="text" ng-model="toDo.newCard.description" placeholder="description"><br/>
                                     <input type="date" ng-model="toDo.newCard.dueDate" placeholder="Due Date">
-                                    <textarea rows="4" cols="50" placeholder="Add an item"></textarea>
-                                    <button ng-click="toDo.addCard($index)">Save Card</button>
+                                    <div>
+                                        <input ng-model="toDo.newToDo" placeholder="Add an item">
+                                        </input><button ng-click="toDo.addItem()">Add Item</button>
+                                    </div>
+                                    <ul>
+                                        <li ng-repeat="item in toDo.newCard.toDoItems ">
+                                            <p>{{item.name}}</p>
+                                        </li>
+                                    </ul>
+                                    <br /><button ng-click="toDo.addCard($index)">Save Card</button>
 
 
 
@@ -70,8 +117,17 @@
                                 </div>
 
 
-                                <li ng-repeat=" card in list.cards track by $index  ">{{ card.name }}
-                                    <button class="buttons" ng-click="toDo.deleteCard( $index ) ">Delete</button></li>
+                                <li ng-repeat="card in list.cards track by $index" dnd-draggable="card" dnd-moved="list.cards.splice($index, 1)" dnd-effect-allowed="move" dnd-selected="list.cards.selected = card" ng-class="{'selected': list.cards.selected === card}">
+
+                                    <div ng-click="card.showDetails = card.showDetails === undefined || !card.showDetails ? true : false">
+                                        {{card.name}}
+                                        <button class="buttons " ng-click="toDo.deleteCard( toDo.lists.indexOf(list), $index ) ">Delete</button>
+                                    </div>
+                                    <div ng-show="card.showDetails ">
+                                        <p>{{card.description}}</p>
+                                        <span ng-repeat="item in card.toDoItems "><br><input type="checkbox" ng-model="item.isChecked"> <p class='item-done-{{item.isChecked}}'>{{item.name}}</p></span>
+                                    </div>
+                                </li>
 
 
                             </ul>
