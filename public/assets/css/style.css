@@ -36,8 +36,8 @@ button {
     margin-left: 70px;
 }
 
-#logout {
-    background: lightskyblue;
+#logout_btn {
+    background: crimson;
     border: 1px solid #298FCA;
 }
 

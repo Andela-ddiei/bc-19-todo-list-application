@@ -5,9 +5,102 @@
     <link rel="stylesheet" href="/assets/css/main.css" />
     <link rel="stylesheet" href="/assets/vendor/font-awesome/css/font-awesome.min.css" />
 
+    <script src="/assets/js/jquery.min.js"></script>
+
     <link rel="stylesheet" href="/assets/vendor/sweetalert/dist/sweetalert.css" />
     <script src="/assets/vendor/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="/assets/vendor/angular-sweetalert/SweetAlert.min.js"></script>
+
+    <script src="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/1.0.0/firebaseui.css" />
+
+    <!-- Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.6.0/firebase.js"></script>
+    <script>
+        var config = {
+            apiKey: "AIzaSyB6yjreGaK9-UVUw7g-hEALD2fR3cp6CQ8",
+            authDomain: "todo-application-2d22b.firebaseapp.com",
+            databaseURL: "https://todo-application-2d22b.firebaseio.com",
+            storageBucket: "todo-application-2d22b.appspot.com",
+            messagingSenderId: "326563238265"
+        };
+        firebase.initializeApp(config);
+
+        $(document).ready(function() {
+
+            $('#sign_in_btn').click(function() {
+                event.preventDefault();
+                var email = $('#login_email').val();
+                var password = $('#login_password').val();
+
+                if (isValidDetails(email, password)) {
+                    firebase.auth().signInWithEmailAndPassword(email, password).then(function() {
+                        swal({
+                                title: "Success",
+                                text: "Your were logged in",
+                                type: "success",
+                                confirmButtonText: "Great",
+                                closeOnConfirm: false,
+                            },
+                            function(isConfirm) {
+                                window.location.href = window.location.href + "todo";
+                            });
+
+                    }).catch(function(err) {
+                        console.log(err);
+                        if (err) {
+                            swal("Error Signing In", "Unrecognized username or password", "error");
+                        }
+
+                    });
+                } else {
+                    swal("Error Signing In", "Please enter a valid email and a password at least 6 characters long", "error");
+                }
+
+
+            });
+
+            $('#sign_up_btn').click(function(event) {
+                event.preventDefault();
+
+                var email = $('#email').val();
+                var password = $('#password').val();
+
+                if (isValidDetails(email, password)) {
+                    firebase.auth().createUserWithEmailAndPassword(email, password).then(function() {
+                        swal({
+                                title: "Success",
+                                text: "Your account was created",
+                                type: "success",
+                                confirmButtonText: "Great",
+                                closeOnConfirm: false,
+                            },
+                            function(isConfirm) {
+                                window.location.href = window.location.href + "todo";
+                            });
+
+                    }).catch(function(err) {
+                        console.log(err);
+                        if (err) {
+                            swal("Error Signing Up", err.message, "error");
+                        }
+
+                    });
+                } else {
+                    swal("Error Signing Up", "Please enter a valid email and a password at least 6 characters long", "error");
+                }
+            })
+        })
+
+        function isValidDetails(email, password) {
+            if (email === null || email.length < 4 || email.indexOf("@") < 0) {
+                return false;
+            }
+            if (password === null || password.length < 6) {
+                return false;
+            }
+            return true;
+        }
+    </script>
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lora|Nunito|Yellowtail" rel="stylesheet">
@@ -19,34 +112,32 @@
         <div id="header">
             <h2>Todo App</h2>
         </div>
-        <form id="login">
+        <div id="login">
 
-            <input type="text" name="email" class="email" placeholder="Email">
+            <input id="login_email" type="text" name="email" class="email" placeholder="Email">
 
-            <input type="password" name="pass" class="pass" placeholder="Password">
+            <input id="login_password" type="password" name="pass" class="pass" placeholder="Password">
 
-            <button type="submit" class="auth">Login</button>
+            <button id="sign_in_btn" class="auth">Login</button>
 
-        </form>
+        </div>
         <div class="clear">
         </div>
     </header>
     <section>
         <div>
-            <form class="signup">
+            <div class="signup">
                 <h3>New to To Do? Sign Up!</h3>
                 <ul>
-                    <li> <input type="text" name="firstname" placeholder="First name"></li>
-                    <li><input type="text" name="lastname" placeholder="Last name"></li>
-                    <li><input type="text" name="email" placeholder="Email"></li>
-                    <li><input type="password" name="pass" placeholder="Password"></li>
-                    <li><button type="submit" class="auth">Sign Up</button></li>
+                    <li><input id="email" type="text" name="email" placeholder="Email"></li>
+                    <li><input id="password" type="password" name="pass" placeholder="Password"></li>
+                    <li><button id="sign_up_btn" class="auth">Sign Up</button></li>
                 </ul>
                 <div class="social-signup">
                     <button class="gmail"><i class="fa fa-google" aria-hidden="true"></i></button>
                     <button class="fbook"><i class="fa fa-facebook" aria-hidden="true"></i></button>
                 </div>
-            </form>
+            </div>
         </div>
     </section>
     <footer>
