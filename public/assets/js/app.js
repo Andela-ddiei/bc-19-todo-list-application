@@ -7,8 +7,11 @@ angular.module('todo', ['oitozero.ngSweetAlert', "dndLists"])
 
         this.addList = function () {
             if (this.newListName.length > 0) {
+                var name = this.newListName;
+                var unique = name.replace(/\s/, '-');
                 this.lists.push({
                     name: this.newListName,
+                    unique: unique,
                     addCardOpen: false,
                     cards: []
                 });
@@ -30,13 +33,16 @@ angular.module('todo', ['oitozero.ngSweetAlert', "dndLists"])
                     confirmButtonText: "Yes, delete it!",
                     closeOnConfirm: false
                 },
-                function () {
-                    this.lists.splice(listIndex, 1);
-                    console.log(listIndex);
-                    SweetAlert.swal("Your list has been deleted!");
+
+                function (isConfirm) {
+                    if (isConfirm) {
+                        this.lists.splice(listIndex, 1);
+                        console.log(listIndex);
+                        SweetAlert.swal("Your list has been deleted!");
+                    } else {
+                        SweetAlert.swal("Your list was not deleted.");
+                    }
                 }.bind(this));
-
-
         }
         this.newCard = {
             isDone: 0,
@@ -63,12 +69,15 @@ angular.module('todo', ['oitozero.ngSweetAlert', "dndLists"])
                     confirmButtonText: "Yes, delete it!",
                     closeOnConfirm: false
                 },
-                function () {
-                    this.lists[listIndex]['cards'].splice(cardIndex, 1);
-                    SweetAlert.swal("Your card has been deleted!");
+                function (isConfirm) {
+                    if (isConfirm) {
+                        this.lists[listIndex]['cards'].splice(cardIndex, 1);
+                        SweetAlert.swal("Your card has been deleted!");
+                    } else {
+                        SweetAlert.swal("Your card was not deleted.");
+                    }
 
                 }.bind(this));
-
         }
         this.addItem = function () {
             console.log(this.newToDo);

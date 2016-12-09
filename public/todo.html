@@ -27,6 +27,7 @@
         <script src="/assets/vendor/angular-sweetalert/SweetAlert.min.js"></script>
 
         <script src="/assets/js/jquery.min.js"></script>
+        <script src="/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
 
         <script src="/assets/js/app.js"></script>
 
@@ -96,64 +97,82 @@
                     </div>
                     <div class="row" id="lists">
 
+
                         <div ng-repeat="list in toDo.lists" class="col-md-4" class="todo-list">
                             <ul class="todo" id="incomplete" dnd-list="list.cards">
-                                <div class="listname">
-                                    <h3>{{list.name}}</h3>
-                                    <div class="list-buttons"><button ng-click="toDo.deleteList( $index )" id="delete-button">Delete list</button></div>
+                                <div class="panel panel-primary no-round">
+                                    <div class="panel-heading no-round">
+                                        <i>{{list.name}} <span class="pull-right"><button ng-click="toDo.deleteList( $index )" class="panel-tools btn btn-danger btn-xs">Delete</button></span></i>
+                                    </div>
+                                    <div class="panel-body">
+                                        <a href="#add-card-{{ list.unique }}" class="btn btn-success btn-long no-round add-card-btn" data-toggle="modal">Add a card</a><br/>
+                                        <div class="panel panel-default no-round" ng-repeat="card in list.cards track by $index" dnd-draggable="card" dnd-moved="list.cards.splice($index, 1)" dnd-effect-allowed="move" dnd-selected="list.cards.selected = card" ng-class="{'selected': list.cards.selected === card}">
+
+                                            <div class="panel-heading no-round" ng-click="card.showDetails = card.showDetails === undefined || !card.showDetails ? true : false">
+                                                <i>{{card.name}} <span class="pull-right"><button ng-click="toDo.deleteCard( toDo.lists.indexOf(list), $index ) " class="panel-tools btn btn-danger btn-xs">Delete</button></span></i>
+                                            </div>
+                                            <div class="panel-body" ng-show="card.showDetails " id="show details">
+                                                <i style="margin-bottom: 15px">{{card.description}}</i>
+                                                <div class="input-group">
+                                                    <input type="text" ng-model="toDo.newToDo" class="form-control no-round" placeholder="Add a todo">
+                                                    <span class="input-group-btn">
+                                                        <button ng-click="toDo.addItem()" class="btn btn-secondary no-round" type="button">Add</button>
+                                                    </span>
+                                                </div>
+
+                                                <div ng-repeat="item in toDo.newCard.toDoItems">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox" ng-model="item.isChecked">
+                                                            <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
+                                                            <i class="item-done-{{item.isChecked}}">{{ item.name }}</i>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <button ng-click="list.addCardOpen = !list.addCardOpen" id="addcard">Add card</button>
-                                <div ng-if="list.addCardOpen">
-
-                                    <input type="text" class="input" ng-model="toDo.newCard.name" placeholder="Name"><br />
-                                    <input type="text" class="input" ng-model="toDo.newCard.description" placeholder="description"><br/>
-                                    <input type="date" class="input" ng-model="toDo.newCard.dueDate" placeholder="Due Date">
-                                    <div>
-                                        <input ng-model="toDo.newToDo" class="input" placeholder="Add an item">
-                                        </input><button ng-click="toDo.addItem()" class="add-save">  Add Item</button>
+                                <div class="modal fade" id="add-card-{{ list.unique }}">
+                                    <div class="modal-dialog" style="background-color: #fff; width:400px;">
+                                        <div class="modal-header">
+                                            <h3> Add a card</h3>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <input type="text" class="input form-control" ng-model="toDo.newCard.name" placeholder="Name"><br />
+                                                    <input type="text" class="input form-control" ng-model="toDo.newCard.description" placeholder="description"><br/>
+                                                    <input type="date" class="input form-control" ng-model="toDo.newCard.dueDate" placeholder="Due Date">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button ng-click="toDo.addCard($index)" class="btn btn-success pull-right">Save Card</button>
+                                        </div>
                                     </div>
-                                    <ul>
-                                        <li ng-repeat="item in toDo.newCard.toDoItems ">
-                                            <p>{{item.name}}</p>
-                                        </li>
-                                    </ul>
-                                    <br /><button ng-click="toDo.addCard($index)" class="add-save">Save Card</button>
-
-
-
-
                                 </div>
 
-
-                                <li ng-repeat="card in list.cards track by $index" dnd-draggable="card" dnd-moved="list.cards.splice($index, 1)" dnd-effect-allowed="move" dnd-selected="list.cards.selected = card" ng-class="{'selected': list.cards.selected === card}">
-
-                                    <div ng-click="card.showDetails = card.showDetails === undefined || !card.showDetails ? true : false">
-                                        {{card.name}}
-                                        <button class="buttons " ng-click="toDo.deleteCard( toDo.lists.indexOf(list), $index ) ">Delete</button>
-                                    </div>
-                                    <div ng-show="card.showDetails " id="show details">
-                                        <p>{{card.description}}</p>
-                                        <span ng-repeat="item in card.toDoItems "><br><input type="checkbox" ng-model="item.isChecked"> <p class='item-done-{{item.isChecked}}'>{{item.name}}</p></span>
-                                    </div>
-                                </li>
-
-
-                            </ul>
 
                         </div>
+
+
+                        </ul>
+
                     </div>
-
-
                 </div>
+
+
+        </div>
         </div>
         </section>
         <footer>
         </footer>
-        <script src="/assets/js/script.js "></script>
-        <script type="text/javascript " src="/assets/js/app.js ">
-            < script >
-                <
-                /body>
 
-            <
-            /html>
+
+
+        <script src="/assets/js/script.js "></script>
+        <script type="text/javascript " src="/assets/js/app.js "></script>
+    </body>
+
+</html>
