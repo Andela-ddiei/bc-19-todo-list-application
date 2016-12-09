@@ -1,9 +1,9 @@
 # Todo App
 
-*Introduction*
+**Introduction**
 
 * Todo App is a JavaScript To Do List Application.
-*It has the following features;
+* It has the following features;
 	* Log in and sign up via email and password
 	* Allows users sign up and login
 	* Allows users create lists
@@ -14,14 +14,15 @@
 
 click [here](https://bc-19-todo-app.herokuapp.com/) to access the app on Heroku.
 
-*Dependencies*
-*Back End Dependencies*
-*This app's functionality depends on multiple JavaScript packages including:
+**Dependencies**
 
-	*[Express.Js](https://expressjs.com/): This farmework handles routing on the backend. https://github.com/expressjs/express/
-	* [nodemon](nodemon.io): Nodemon helps monitor for changes in your source and automatically restarts your server.https://github.com/remy/nodemon/
+**Back End Dependencies**
 
-*Front End Dependencies*
+* This app's functionality depends on multiple JavaScript packages including:
+    * [Express.Js](https://expressjs.com/): This farmework handles routing on <the></the> backend. https://github.com/expressjs/express/
+    * [nodemon](nodemon.io): Nodemon helps monitor for changes in your source and automatically restarts your server.https://github.com/remy/nodemon/
+
+**Front End Dependencies**
 
 * [Bootstrap](http://getbootstrap.com/): Bootstrap makes styling responsive web pages faster and easier. 
     GITHUB: https://github.com/twbs/bootstrap
@@ -37,7 +38,7 @@ click [here](https://bc-19-todo-app.herokuapp.com/) to access the app on Heroku.
     GITHUB: https://github.com/firebase/angularfire
 
 
-*Installation and setup*
+**Installation and setup**
 
 * Navigate to directory of choice on terminal.
 * Clone this repository on that directory
@@ -52,10 +53,10 @@ click [here](https://bc-19-todo-app.herokuapp.com/) to access the app on Heroku.
 * Install the app's backend dependencies. 
 * Create a firebase database and add the config.
 * Install the app's Backend dependencies using bower.
-	* >npm install
+	 >npm install
 
 * Install the app's Frontend dependencies using bower.
-	* >./node_modules/bower/bin/bower install
+	 >./node_modules/bower/bin/bower install
 >In order to use bower, you need to install it through npm. You also need to have node and git >installed on your system.*
 
 * Run the app
