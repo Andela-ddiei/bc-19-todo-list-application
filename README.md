@@ -57,7 +57,7 @@ click [here](https://bc-19-todo-app.herokuapp.com/) to access the app on Heroku.
 
 * Install the app's Frontend dependencies using bower.
 	 >./node_modules/bower/bin/bower install
->In order to use bower, you need to install it through npm. You also need to have node and git >installed on your system.*
+* In order to use bower, you need to install it through npm. You also need to have node and git installed on your system.
 
 * Run the app
 
