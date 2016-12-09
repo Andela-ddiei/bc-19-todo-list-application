@@ -21,6 +21,8 @@
 
 
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0-rc.2/angular.min.js"></script>
+        <!-- AngularFire -->
+        <script src="https://cdn.firebase.com/libs/angularfire/2.1.0/angularfire.min.js"></script>
 
         <script src="/assets/js/angular-drag-and-drop-lists.min.js"></script>
         <script src="/assets/vendor/sweetalert/dist/sweetalert.min.js"></script>
@@ -116,14 +118,13 @@
                                                 <div class="input-group">
                                                     <input type="text" ng-model="toDo.newToDo" class="form-control no-round" placeholder="Add a todo">
                                                     <span class="input-group-btn">
-                                                        <button ng-click="toDo.addItem()" class="btn btn-secondary no-round" type="button">Add</button>
+                                                        <button ng-click="toDo.addItem(list,card)" class="btn btn-secondary no-round" type="button">Add</button>
                                                     </span>
                                                 </div>
-
-                                                <div ng-repeat="item in toDo.newCard.toDoItems">
+                                                <div ng-repeat="item in card.toDoItems">
                                                     <div class="checkbox">
                                                         <label>
-                                                            <input type="checkbox" ng-model="item.isChecked">
+                                                            <input type="checkbox" ng-model="item.isChecked" ng-change="toDo.saveDatatoFirebase()">
                                                             <span class="cr"><i class="cr-icon glyphicon glyphicon-ok"></i></span>
                                                             <i class="item-done-{{item.isChecked}}">{{ item.name }}</i>
                                                         </label>
