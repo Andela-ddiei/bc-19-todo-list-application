@@ -7,16 +7,15 @@ angular.module('todo', ['oitozero.ngSweetAlert', "dndLists", "firebase"])
         this.fireBaseData;
         this.userRef;
 
+        //wait for firebase to recognise logged in user
         $timeout(function () {
             var currentUser = firebase.auth().currentUser;
-            console.log(currentUser.email);
             //firebase keys cannot contain special characters
             var userEmail = currentUser.email.replace(/[^0-9A-Za-z]/g, '');
             this.userRef = firebase.database().ref().child(userEmail);
+
             var getfireBaseData = $firebaseObject(this.userRef);
-            console.log(getfireBaseData);
             getfireBaseData.$loaded().then(function (data) {
-                console.log(data, "firebaseData");
                 this.populateWithFirebaseData(data.$value);
             }.bind(this));
         }.bind(this), 2000);
@@ -39,14 +38,6 @@ angular.module('todo', ['oitozero.ngSweetAlert', "dndLists", "firebase"])
 
         this.unSerialiseList = function (listData) {
             return JSON.parse(listData);
-        }
-
-        this.saveToFirebase = function () {
-            var listData = this.serialiseList(this.lists);
-        }
-
-        this.getFromFirebase = function () {
-            var listData;
         }
 
         this.addList = function () {
@@ -137,13 +128,7 @@ angular.module('todo', ['oitozero.ngSweetAlert', "dndLists", "firebase"])
                 })
                 console.log(this.lists[listIndex]);
             }
-            // this.newCard.toDoItems.push({
-            //     name: this.newToDo,
-            //     isChecked: false
-            // });
             this.newToDo = '';
             this.saveDatatoFirebase();
         }
-
-
     }]);
