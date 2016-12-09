@@ -5,7 +5,7 @@
 }
 
 body,
-imput,
+input,
 button {
     font-family: 'Roboto', sans-serif;
 }
@@ -17,7 +17,7 @@ button {
     top: 0;
     left: 0;
     z-index: 5;
-    background: #120815;
+    background: #3b5998;
     box-shadow: 0px 2px 4px rgba(44, 62, 80, 0.15);
     color: #fff;
 }
@@ -35,8 +35,8 @@ button {
 }
 
 #logout_btn {
-    background: #0756A5;
-    border: 1px solid #0756A5;
+    background: green;
+    border: 1px solid green;
 }
 
 .clear {
@@ -44,19 +44,8 @@ button {
 }
 
 body {
-    background-color: #F1CDFB !important;
+    background-color: #fff !important;
 }
-
-
-/*input[type="text"] {
-    width: 30px;
-    height: 30px;
-}
-
-input[type="checkbox"] {
-    width: 30px;
-    height: 30px;
-}*/
 
 .create-list {
     height: 40px;
@@ -66,6 +55,7 @@ input[type="checkbox"] {
     font-size: 15px;
     font-weight: 400px;
     text-indent: 20px;
+    border: 1px solid;
 }
 
 input::-webkit-input-placeholder {
@@ -106,7 +96,6 @@ ul.todo {
 ul.todo li {
     width: 100%;
     height: 50px;
-    background: #120815;
     border-radius: 2px;
     box-shadow: none;
     margin: 10px;
@@ -143,10 +132,22 @@ input[type='checkbox'] {
     height: 30px;
 }
 
+.no-round {
+    border-radius: 0px !important;
+}
+
+.btn-long {
+    width: 100%;
+}
+
+.add-card-btn {
+    margin-bottom: 10px !important;
+}
+
 .listname {
     width: 100%;
     height: 150px;
-    background: #210829;
+    background: #221717;
     box-shadow: none;
     margin-bottom: 0 10px 10px -10px;
     position: relative;
@@ -192,6 +193,11 @@ ul.todo .list-buttons button {
     text-decoration: line-through;
 }
 
+.panel-tools {
+    position: relative;
+    top: -20px;
+}
+
 #head-text {
     font-family: 'Yellowtail', cursive;
 }
@@ -227,4 +233,67 @@ ul.todo .list-buttons button {
 
 h3 {
     font-size: 18px !important;
+}
+
+.checkbox label:after,
+.radio label:after {
+    content: '';
+    display: table;
+    clear: both;
+}
+
+.checkbox .cr,
+.radio .cr {
+    position: relative;
+    display: inline-block;
+    border: 1px solid #a9a9a9;
+    border-radius: .25em;
+    width: 1.3em;
+    height: 1.3em;
+    float: left;
+    margin-right: .5em;
+}
+
+.radio .cr {
+    border-radius: 50%;
+}
+
+.checkbox .cr .cr-icon,
+.radio .cr .cr-icon {
+    position: absolute;
+    font-size: .8em;
+    line-height: 0;
+    top: 50%;
+    left: 20%;
+}
+
+.radio .cr .cr-icon {
+    margin-left: 0.04em;
+}
+
+.checkbox label {
+    padding-left: 0px !important;
+}
+
+.checkbox label input[type="checkbox"],
+.radio label input[type="radio"] {
+    display: none;
+}
+
+.checkbox label input[type="checkbox"]+.cr>.cr-icon,
+.radio label input[type="radio"]+.cr>.cr-icon {
+    transform: scale(3) rotateZ(-20deg);
+    opacity: 0;
+    transition: all .3s ease-in;
+}
+
+.checkbox label input[type="checkbox"]:checked+.cr>.cr-icon,
+.radio label input[type="radio"]:checked+.cr>.cr-icon {
+    transform: scale(1) rotateZ(0deg);
+    opacity: 1;
+}
+
+.checkbox label input[type="checkbox"]:disabled+.cr,
+.radio label input[type="radio"]:disabled+.cr {
+    opacity: .5;
 }

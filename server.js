@@ -8,12 +8,12 @@ function respond(res, filePath) {
     res.sendFile(path.join(__dirname, filePath));
 }
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
     respond(res, './public/index.html');
 });
 
-app.get('/todo', function(req, res) {
+app.get('/todo', function (req, res) {
     respond(res, './public/todo.html');
 });
 
-app.listen(3000);
+app.listen(process.env.PORT || 5000);
